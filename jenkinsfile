@@ -15,11 +15,13 @@ pipeline{
       }
     }
     stage('Deploy'){
-      ansiblePlaybook(
-        playbook: "${env.WORKSPACE}/playbook.yml",
-        inventory: "${env.WORKSPACE}/hosts",
-        credentialsId: "25264ad3-faf1-46b8-aa2f-438c16408772",
-      )
+      steps{
+        ansiblePlaybook(
+          playbook: "${env.WORKSPACE}/playbook.yml",
+          inventory: "${env.WORKSPACE}/hosts",
+          credentialsId: "25264ad3-faf1-46b8-aa2f-438c16408772",
+        )
+      }  
     }
   }
   post{
