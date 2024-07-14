@@ -1,0 +1,2 @@
+# jenkins_ansible
+测试jenkins集成ansible自动化部署
