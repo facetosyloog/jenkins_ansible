@@ -1,0 +1,30 @@
+pipeline{
+  agent any
+  stages{
+    stage('Check Version'){
+      steps{
+        script{
+          def version = sh(script: 'cat version.txt', returnStdout:true).trim()
+          echo "Version is: $version"
+        }
+      }
+    }
+    stage('Build'){
+      steps{
+        echo 'stage build'
+      }
+    }
+    stage('Deploy'){
+      ansiblePlabook(
+        playbook: "${env.WORKSPACE}/playbook.yml",
+        inventory: "${env.WORKSPACE}/hosts",
+        credentialsId: "25264ad3-faf1-46b8-aa2f-438c16408772",
+      )
+    }
+  }
+  post{
+    always{
+      echo "pipeline finished"
+    }
+  }
+}
